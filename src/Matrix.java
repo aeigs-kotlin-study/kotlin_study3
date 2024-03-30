@@ -1,3 +1,5 @@
+import org.jetbrains.annotations.Nullable;
+
 import java.util.Arrays;
 
 public class Matrix {
@@ -21,6 +23,7 @@ public class Matrix {
         }
     }
 
+    @Nullable
     public static Matrix createInstance(int rows, int columns) {
         if (rows <= 0 || columns <= 0)
             return null;
@@ -28,6 +31,7 @@ public class Matrix {
         return new Matrix(rows, columns);
     }
 
+    @Nullable
     public static Matrix createInstance(int[][] predefinedEntries) {
         if (predefinedEntries == null)
             return null;

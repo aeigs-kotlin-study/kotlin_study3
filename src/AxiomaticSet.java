@@ -1,9 +1,9 @@
-import java.util.HashSet;
-import java.util.Iterator;
-import java.util.Set;
+import org.jetbrains.annotations.Nullable;
+
+import java.util.*;
 
 public class AxiomaticSet {
-    private final Set<AxiomaticSet> container;
+    private final List<AxiomaticSet> container;
     public static final AxiomaticSet EMPTY_SET;
 
     static {
@@ -11,7 +11,7 @@ public class AxiomaticSet {
     }
 
     private AxiomaticSet() {
-        container = new HashSet<>();
+        container = new ArrayList<>();
     }
 
     public static AxiomaticSet singleton(AxiomaticSet set) {
@@ -24,7 +24,9 @@ public class AxiomaticSet {
     public static AxiomaticSet pair(AxiomaticSet setA, AxiomaticSet setB) {
         AxiomaticSet set = new AxiomaticSet();
         set.container.add(setA);
-        set.container.add(setB);
+
+        if (!setA.equals(setB))
+            set.container.add(setB);
 
         return set;
     }
@@ -32,20 +34,20 @@ public class AxiomaticSet {
     public static AxiomaticSet union(AxiomaticSet setA, AxiomaticSet setB) {
         AxiomaticSet set = new AxiomaticSet();
         set.container.addAll(setA.container);
-        set.container.addAll(setB.container);
+
+        for (AxiomaticSet element : setB.container) {
+            if (!setA.contains(element))
+                set.container.add(element);
+        }
 
         return set;
     }
 
     public static AxiomaticSet intersection(AxiomaticSet setA, AxiomaticSet setB) {
         AxiomaticSet set = new AxiomaticSet();
-        Iterator<AxiomaticSet> iterator = setA.container.iterator();
 
-        AxiomaticSet element;
-        while (iterator.hasNext()) {
-            element = iterator.next();
-
-            if (setB.container.contains(element))
+        for (AxiomaticSet element : setA.container) {
+            if (setB.contains(element))
                 set.container.add(element);
         }
 
@@ -56,6 +58,7 @@ public class AxiomaticSet {
         return union(this, singleton(this));
     }
 
+    @Nullable
     public static AxiomaticSet setTheoreticN(int n) {
         if (n < 0)
             return null;
@@ -69,6 +72,21 @@ public class AxiomaticSet {
 
     public boolean contains(AxiomaticSet set) {
         return container.contains(set);
+    }
+
+    public boolean isSubset(AxiomaticSet set) {
+        return container.containsAll(set.container);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null)
+            return false;
+
+        if (!(o instanceof AxiomaticSet anotherSet))
+            return false;
+
+        return isSubset(anotherSet) && anotherSet.isSubset(this);
     }
 
     @Override
