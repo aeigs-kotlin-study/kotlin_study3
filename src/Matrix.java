@@ -71,7 +71,7 @@ public class Matrix {
 
     public Matrix add(Matrix anotherMatrix) {
         if (rows != anotherMatrix.rows || columns != anotherMatrix.columns)
-            throw new InvalidMatrixException();
+            return null;
 
         Matrix mat = new Matrix(rows, columns);
 
@@ -88,7 +88,7 @@ public class Matrix {
 
     public Matrix multiply(Matrix anotherMatrix) {
         if (columns != anotherMatrix.rows)
-            throw new InvalidMatrixException();
+            return null;
 
         Matrix mat = new Matrix(rows, anotherMatrix.columns);
 
