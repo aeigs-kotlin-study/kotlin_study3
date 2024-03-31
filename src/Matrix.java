@@ -69,7 +69,11 @@ public class Matrix {
         return mat;
     }
 
+    @Nullable
     public Matrix add(Matrix anotherMatrix) {
+        if (anotherMatrix == null)
+            return null;
+
         if (rows != anotherMatrix.rows || columns != anotherMatrix.columns)
             return null;
 
@@ -82,11 +86,19 @@ public class Matrix {
         return mat;
     }
 
+    @Nullable
     public Matrix subtract(Matrix anotherMatrix) {
+        if (anotherMatrix == null)
+            return null;
+
         return add(anotherMatrix.negate());
     }
 
+    @Nullable
     public Matrix multiply(Matrix anotherMatrix) {
+        if (anotherMatrix == null)
+            return null;
+
         if (columns != anotherMatrix.rows)
             return null;
 

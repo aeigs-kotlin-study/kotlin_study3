@@ -15,7 +15,7 @@ operator fun Matrix?.unaryMinus(): Matrix? {
 }
 
 fun containsEmptySet(set: AxiomaticSet?): Boolean {
-    return set?.contains(AxiomaticSet.EMPTY_SET) ?: false
+    return set?.contains(AxiomaticSet.EMPTY_SET) ?: throw IllegalArgumentException("I cannot operate on a null instance!")
 }
 
 fun main() {
@@ -48,6 +48,10 @@ fun main() {
     val set1: AxiomaticSet? = AxiomaticSet.setTheoreticN(5)
     val set2: AxiomaticSet? = AxiomaticSet.setTheoreticN(10)
     val invalidSet: AxiomaticSet? = AxiomaticSet.setTheoreticN(-5)
+
+    // this throws an IllegalArgumentException.
+    containsEmptySet(invalidSet)
+
     println(set1)
     println(set2)
     println(invalidSet)

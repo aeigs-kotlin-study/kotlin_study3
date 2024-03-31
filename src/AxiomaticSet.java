@@ -14,14 +14,11 @@ public class AxiomaticSet {
         container = new ArrayList<>();
     }
 
-    public static AxiomaticSet singleton(AxiomaticSet set) {
-        AxiomaticSet wrap = new AxiomaticSet();
-        wrap.container.add(set);
-
-        return wrap;
-    }
-
+    @Nullable
     public static AxiomaticSet pair(AxiomaticSet setA, AxiomaticSet setB) {
+        if (setA == null || setB == null)
+            return null;
+
         AxiomaticSet set = new AxiomaticSet();
         set.container.add(setA);
 
@@ -31,7 +28,16 @@ public class AxiomaticSet {
         return set;
     }
 
+    @Nullable
+    public static AxiomaticSet singleton(AxiomaticSet set) {
+        return pair(set, set);
+    }
+
+    @Nullable
     public static AxiomaticSet union(AxiomaticSet setA, AxiomaticSet setB) {
+        if (setA == null || setB == null)
+            return null;
+
         AxiomaticSet set = new AxiomaticSet();
         set.container.addAll(setA.container);
 
@@ -43,7 +49,11 @@ public class AxiomaticSet {
         return set;
     }
 
+    @Nullable
     public static AxiomaticSet intersection(AxiomaticSet setA, AxiomaticSet setB) {
+        if (setA == null || setB == null)
+            return null;
+
         AxiomaticSet set = new AxiomaticSet();
 
         for (AxiomaticSet element : setA.container) {
@@ -75,6 +85,9 @@ public class AxiomaticSet {
     }
 
     public boolean isSubset(AxiomaticSet set) {
+        if (set == null)
+            return false;
+
         return container.containsAll(set.container);
     }
 
