@@ -29,4 +29,9 @@ public class Matrix {
             System.arraycopy(predefinedEntries[j], 0, entries[j], 0, columns);
         }
     }
+
+    @Override
+    public String toString() {
+        return Arrays.deepToString(entries);
+    }
 }

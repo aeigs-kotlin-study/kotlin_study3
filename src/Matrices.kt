@@ -16,6 +16,18 @@ fun Matrix.getEntryAt(row: Int, column: Int): Double {
     return entries[row-1][column-1]
 }
 
+fun createVectorInstance(horizontal: Boolean, vararg elements: Double): Matrix {
+    if (elements.isEmpty())
+        throw IllegalArgumentException()
+
+    val vector = if (horizontal) Matrix(1, elements.size) else Matrix(elements.size, 1)
+
+    for (i in 1..elements.size)
+        if (horizontal) vector.setEntryAt(1, i, elements[i-1]) else vector.setEntryAt(i, 1, elements[i-1])
+
+    return vector
+}
+
 fun Matrix.deepCopy() = Matrix(entries)
 
 fun Matrix.negate(): Matrix {
