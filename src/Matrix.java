@@ -29,12 +29,4 @@ public class Matrix {
             System.arraycopy(predefinedEntries[j], 0, entries[j], 0, columns);
         }
     }
-
-    public String toString() {
-        StringBuilder builder = new StringBuilder();
-        for (int i = 0; i < rows; i++)
-            builder.append(Arrays.toString(entries[i])).append('\n');
-
-        return builder.toString();
-    }
 }

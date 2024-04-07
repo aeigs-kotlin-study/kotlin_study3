@@ -6,12 +6,12 @@ private fun Matrix.validateIndices(row: Int = 1, column: Int = 1) {
 
 }
 
-private fun Matrix.setEntryAt(row: Int, column: Int, value: Double) {
+fun Matrix.setEntryAt(row: Int, column: Int, value: Double) {
     validateIndices(row, column)
     entries[row-1][column-1] = value
 }
 
-private fun Matrix.getEntryAt(row: Int, column: Int): Double {
+fun Matrix.getEntryAt(row: Int, column: Int): Double {
     validateIndices(row, column)
     return entries[row-1][column-1]
 }
